@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Extension</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Modern Header -->
+        <header class="app-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="ri-brain-line"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Memory</h1>
+                    <span>Extension</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn" id="settingsBtn" title="Settings">
+                    <i class="ri-settings-4-line"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Settings Panel (Overlays smoothly) -->
+        <div class="settings-overlay" id="settingsPanel" style="display: none;">
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h2>Configuration</h2>
+                    <button class="close-btn" id="cancelSettings"><i class="ri-close-line"></i></button>
+                </div>
+                <div class="settings-body">
+                    <div class="input-group">
+                        <label for="apiKeyInput">Gemini API Key</label>
+                        <div class="input-wrapper">
+                            <i class="ri-key-2-line"></i>
+                            <input type="password" id="apiKeyInput" placeholder="Enter API key...">
+                        </div>
+                        <small>Obtain from <a href="https://makersuite.google.com/app/apikey" target="_blank">AI
+                                Studio</a></small>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="saveApiKey">
+                        <i class="ri-save-line"></i> Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content" id="mainContent">
+            <!-- Active Session Status -->
+            <div class="session-status">
+                <div class="platform-info">
+                    <div id="statusIndicator" class="pulse-dot"></div>
+                    <span id="statusText">Detecting chat...</span>
+                </div>
+                <div class="platform-tag" id="platformBadge" style="display: none;">
+                    <i class="ri-robot-2-line"></i>
+                    <span id="platformName">ChatGPT</span>
+                </div>
+            </div>
+
+            <!-- Content Tabs -->
+            <div class="content-tabs">
+                <button class="content-tab active" data-target="questions-view">
+                    <i class="ri-question-answer-line"></i> Questions
+                    <span class="count-badge" id="questionCount">0</span>
+                </button>
+                <button class="content-tab" data-target="summary-view">
+                    <i class="ri-sparkling-fill"></i> Intelligence
+                </button>
+                <button class="content-tab" data-target="history-view">
+                    <i class="ri-history-line"></i> Library
+                </button>
+            </div>
+
+            <!-- Scrollable Viewport -->
+            <div class="view-container">
+                <!-- Questions View -->
+                <div id="questions-view" class="view active">
+                    <div class="questions-list" id="questionsList">
+                        <div class="empty-state">
+                            <div class="empty-icon"><i class="ri-chat-voice-line"></i></div>
+                            <p>No questions detected</p>
+                            <span>Interact with ChatGPT or Claude</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intelligence/Summary View -->
+                <div id="summary-view" class="view">
+                    <div class="summary-wrapper" id="summaryContent">
+                        <div class="empty-state">
+                            <div class="empty-icon"><i class="ri-lightbulb-flash-line"></i></div>
+                            <p>Intelligence pending</p>
+                            <span>Analyze questions to generate context</span>
+                        </div>
+                    </div>
+                    <div class="intel-actions">
+                        <button class="btn btn-primary btn-full btn-glow" id="generateSummaryBtn" disabled>
+                            <i class="ri-magic-line"></i> Generate Context
+                        </button>
+                        <button class="btn btn-secondary icon-only" id="copyContextBtn" title="Copy Context"
+                            style="display: none;">
+                            <i class="ri-file-copy-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Library/History View -->
+                <div id="history-view" class="view">
+                    <div class="library-header">
+                        <div class="library-tabs">
+                            <button class="lib-tab active" id="recentTabBtn">Recent</button>
+                            <button class="lib-tab" id="favoritesTabBtn">Starred</button>
+                        </div>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <!-- History items injected here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
